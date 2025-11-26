@@ -7,7 +7,7 @@ Custom commands for [Claude Code](https://claude.ai/claude-code).
 Clone this repository and run the setup script:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/dotfiles-claude.git
+git clone https://github.com/silveiralsv/dotfiles-claude.git
 cd dotfiles-claude
 ./setup.sh
 ```
