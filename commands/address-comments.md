@@ -46,6 +46,19 @@ Instructions:
    - Flag any risks: test failures, runtime errors, edge cases, performance implications
    - **Risk Level**: LOW / MEDIUM / HIGH
 
+   **Claude's Judgment**:
+   Evaluate whether this comment should be addressed. Use Explore agents to investigate the codebase for tradeoffs, patterns, and broader context before forming your opinion. Consider:
+   - Does the suggestion genuinely improve code quality, correctness, or maintainability?
+   - Does the cost of the change (complexity, risk, effort) outweigh the benefit?
+   - Is this a matter of personal style/preference vs an objective improvement?
+   - Are there existing patterns in the codebase that support or contradict the suggestion?
+
+   Assign a confidence level (0-100%) for your recommendation:
+   - **>=80% confidence**: State a clear verdict — **SHOULD ADDRESS** or **SKIP** — in bold, followed by a concise explanation.
+   - **<80% confidence**: State **NEEDS DISCUSSION** in bold, explain the tradeoffs from both sides, and let the user decide.
+
+   Format: **[VERDICT] (confidence%)**: explanation
+
    ---
 
 8. After listing all comments, display:
