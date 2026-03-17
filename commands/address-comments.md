@@ -21,6 +21,7 @@ Instructions:
    - `path` - file path
    - `line` or `original_line` - line number
    - `diff_hunk` - code context
+   - `created_at` - when the review comment was posted
 
 6. For each comment, read the relevant file and analyze the surrounding code context to understand the full impact of the requested change.
 
@@ -30,6 +31,7 @@ Instructions:
    ## [ID] Comment Title (brief summary of what's requested)
 
    **Reviewer**: @username
+   **Date**: YYYY-MM-DD HH:MM (formatted from `created_at`)
    **File**: `path/to/file.ts:123`
 
    **Comment**:
