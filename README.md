@@ -33,6 +33,14 @@ Features:
 - Provides risk assessment (LOW/MEDIUM/HIGH) for each change
 - Allows selective execution of changes by ID
 
+### `/resolve-comments`
+
+Extension of `/address-comments`. Run this after reviewing the comment verdicts to automatically:
+- Apply all SHOULD ADDRESS changes
+- Commit and push in a single commit
+- Reply to each PR comment on GitHub explaining what was changed or why it was skipped
+- List NEEDS DISCUSSION comments for manual review
+
 ### `/monthly-summary`
 
 Generates a summary of your git activity for the current month across all repositories.
