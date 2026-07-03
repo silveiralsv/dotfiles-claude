@@ -102,8 +102,24 @@ Instructions:
        - For **NEEDS DISCUSSION** comments:
          Tag the reviewer with `@{username}`. Present Claude's perspective from the Judgment section — share the tradeoffs analyzed and Claude's leaning, framed as a discussion point (not a dismissal). Invite the reviewer to share their thoughts.
 
-    d. **Display a final summary**:
+    d. **Resolve the review thread** for each addressed comment (both **SHOULD ADDRESS** and **SKIP** — never **NEEDS DISCUSSION**):
+       Each inline review comment lives in a review thread; replying does NOT resolve it. Mark it resolved so the conversation is closed and the PR's "unresolved conversations" gate clears.
+       1. Map the comment to its thread node id:
+          `gh api graphql -f query='query($owner:String!,$repo:String!,$pr:Int!){repository(owner:$owner,name:$repo){pullRequest(number:$pr){reviewThreads(first:100){nodes{id isResolved comments(first:20){nodes{databaseId}}}}}}}' -F owner={owner} -F repo={repo} -F pr={pr_number}`
+          Pick the thread whose `comments[].databaseId` contains the `comment_id` you replied to.
+       2. Resolve it:
+          `gh api graphql -f query='mutation($id:ID!){resolveReviewThread(input:{threadId:$id}){thread{id isResolved}}}' -F id=<threadId>`
+       Leave **NEEDS DISCUSSION** threads OPEN — resolving them would hide an unanswered question.
+
+    e. **Request re-review** from every reviewer whose comments were addressed (**SHOULD ADDRESS**), so they are re-pinged to look at the fix:
+       - **Human** reviewers — re-request review:
+         `gh api -X POST repos/{owner}/{repo}/pulls/{pr_number}/requested_reviewers -f 'reviewers[]=<login>'`
+       - **Bot** reviewers (login ends in `[bot]`, e.g. `coderabbitai[bot]`) — do NOT call `requested_reviewers` (it rejects bots). The push already re-triggers most review bots; if the bot has an explicit re-review trigger, use it instead (e.g. CodeRabbit: comment `@coderabbitai review`).
+       Skip re-review for reviewers whose only comments were SKIP or NEEDS DISCUSSION.
+
+    f. **Display a final summary**:
        - Number of comments resolved (SHOULD ADDRESS)
        - Number of comments skipped (SKIP) with brief reasons
        - Number of comments opened for discussion (NEEDS DISCUSSION)
+       - Threads marked resolved (count) and re-reviews requested (list of @logins)
        - Link to the PR
