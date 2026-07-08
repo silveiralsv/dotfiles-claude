@@ -76,3 +76,14 @@ Drives a single tracker ticket end-to-end to a **merged PR**, hands-off, by orch
 7. Updates the PI-Index tracker (In Review → Done + PR link) and cleans up the worktree.
 
 Pairs with `scaffold-project`: that skill creates the PI-Index; `ship-ticket --next` consumes it to pick and ship the next ticket.
+
+### `release-note`
+
+Generates a release note for a shipped (or shipping) feature and saves it to the Obsidian Vault under `<repo>/Releases/`, in one of two proven flavors:
+
+- **Engineering release note** — precise and technical: rule/eligibility tables, an ASCII pipeline diagram of how it works, the launch switch (DevCycle flag or "None"), and a "what the customer sees" walkthrough.
+- **Product / customer-facing launch note** — benefit-led, with emoji sections ("What's new / What it looks like / Example use cases / Rollout plan") and inline screenshots, written to be pasted into **#product-releases**.
+
+It grounds every claim in real material — the Linear project/tickets, git history, the vault's own `Docs/` / `Plans/` / `Projects/` specs / `Memories/`, the DevCycle feature flag, and screenshots reused from existing staging test evidence — never inventing behavior. It writes everything in English and commits + pushes the vault.
+
+Invoke it by asking Claude to "generate a release note" / "write the launch notes" and pointing at a feature, a Linear project, or a set of merged tickets (optionally `--technical` or `--product`).
