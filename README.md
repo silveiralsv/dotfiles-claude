@@ -1,6 +1,6 @@
 # dotfiles-claude
 
-Custom commands for [Claude Code](https://claude.ai/claude-code).
+Custom commands, agents, and skills for [Claude Code](https://claude.ai/claude-code).
 
 ## Setup
 
@@ -12,7 +12,12 @@ cd dotfiles-claude
 ./setup.sh
 ```
 
-This creates symlinks from `~/.claude/commands/` to the commands in this repo.
+This symlinks each item into `~/.claude/`:
+- `commands/*.md` → `~/.claude/commands/`
+- `agents/*.md` → `~/.claude/agents/`
+- `skills/<skill>/` → `~/.claude/skills/` (each skill is a directory containing a `SKILL.md`)
+
+Existing files/symlinks are left untouched (re-running is safe).
 
 ## Commands
 
@@ -44,3 +49,30 @@ Extension of `/address-comments`. Run this after reviewing the comment verdicts 
 ### `/monthly-summary`
 
 Generates a summary of your git activity for the current month across all repositories.
+
+## Skills
+
+### `scaffold-project`
+
+Scaffolds a project tracking folder in the Obsidian Vault from a project-management source (a **Linear project** or a **Shortcut epic**).
+
+- Resolves the **canonical name** from the source and slugifies it into the folder name, so `<Vault>/<repo>/Projects/<slug>/` always matches the source's project/epic name (Linear → Linear project name; Shortcut → Shortcut epic name).
+- Creates a `PI-Index.md` (metadata + a topologically-ordered ticket table with status, dependencies, and PR links) plus a `specs/` folder.
+- **Idempotent & conflict-safe:** if the slug already exists it does **not** overwrite — it reports that the project already exists and diffs the live source against the existing index, so drift is visible before any change.
+- Commits and pushes the vault on create / approved update.
+
+Invoke it by asking Claude to "scaffold a project" / "create the PI-Index for &lt;project&gt;" and pointing at a Linear project URL or Shortcut epic (optionally `into <repo-folder>`).
+
+### `ship-ticket`
+
+Drives a single tracker ticket end-to-end to a **merged PR**, hands-off, by orchestrating subagents that each own their own context window:
+
+1. Resolves the ticket — from a **ticket id/URL** (`ship-ticket APO-1784`), or from a **project + `--next`** (`ship-ticket tiered-user-billing --next`) to auto-pick the next unblocked item in the vault PI-Index sequence.
+2. Grounds it (repo-knowledge-planner + Explore) and reads the project `specs/`.
+3. An **executor** subagent implements + tests + commits + pushes the branch, then reports back.
+4. Runs the mandatory **feature-docs-curator** + **codebase-memory-curator** (before the PR).
+5. Opens the PR to the repo's base branch.
+6. A **pr-shepherd** subagent keeps CI green, works review comments, and merges on green + a human approval.
+7. Updates the PI-Index tracker (In Review → Done + PR link) and cleans up the worktree.
+
+Pairs with `scaffold-project`: that skill creates the PI-Index; `ship-ticket --next` consumes it to pick and ship the next ticket.
