@@ -1,0 +1,81 @@
+<!--
+  flow-storyteller — copy-adapt skeleton.
+  Demonstrates every primitive: title+subtitle, actor legend, a numbered step card
+  (accent stripe + actor pill + bold title + body line), arrow marker, a decision pill,
+  two tinted branch cards with outcome badges, a fork note, merge connectors, and a done node.
+  Replace placeholder text, add/remove steps, grow the viewBox height as needed.
+  Palette (actor stroke / fill / text):
+    teal   #0d9488 / #ecfdf5 / #0f766e
+    indigo #4f46e5 / #eef2ff / #3730a3
+    amber  #b45309 / #fffbeb / #92400e
+    rose   #be123c / #fff1f2 / #9f1239
+    emerald#059669 / #ecfdf5 / #047857
+  Neutrals: title #111827 · muted #6b7280 · body #374151 · lines #9ca3af · card #f8fafc
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="500" y="40" text-anchor="middle" font-size="23" font-weight="700" fill="#111827">Title — what this flow is, in plain words</text>
+  <text x="500" y="66" text-anchor="middle" font-size="13.5" fill="#6b7280">One line saying what the diagram covers. Colored tag = who does that step.</text>
+
+  <!-- actor legend -->
+  <g font-size="11.5">
+    <rect x="360" y="82" width="70" height="20" rx="10" fill="#eef2ff" stroke="#4f46e5"/><text x="395" y="96" text-anchor="middle" fill="#3730a3">Actor A</text>
+    <rect x="442" y="82" width="70" height="20" rx="10" fill="#ecfdf5" stroke="#0d9488"/><text x="477" y="96" text-anchor="middle" fill="#0f766e">Actor B</text>
+    <rect x="524" y="82" width="94" height="20" rx="10" fill="#fffbeb" stroke="#b45309"/><text x="571" y="96" text-anchor="middle" fill="#92400e">Actor C</text>
+  </g>
+
+  <!-- step card (repeat this block per step; change color + text) -->
+  <rect x="160" y="118" width="680" height="72" rx="10" fill="#f8fafc" stroke="#4f46e5" stroke-width="1.5"/>
+  <rect x="160" y="118" width="6" height="72" rx="3" fill="#4f46e5"/>
+  <rect x="176" y="130" width="70" height="19" rx="9.5" fill="#eef2ff"/><text x="211" y="143.5" text-anchor="middle" font-size="11" fill="#3730a3">Actor A</text>
+  <text x="176" y="168" font-size="15" font-weight="700" fill="#111827">1 · Short step title (what happens)</text>
+  <text x="176" y="185" font-size="12.5" fill="#374151">One plain line on why it matters. Bold the key term, e.g. status <tspan font-weight="700">Open</tspan>. Keep under ~100 chars.</text>
+
+  <line x1="500" y1="190" x2="500" y2="216" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- another step -->
+  <rect x="160" y="218" width="680" height="72" rx="10" fill="#f8fafc" stroke="#0d9488" stroke-width="1.5"/>
+  <rect x="160" y="218" width="6" height="72" rx="3" fill="#0d9488"/>
+  <rect x="176" y="230" width="70" height="19" rx="9.5" fill="#ecfdf5"/><text x="211" y="243.5" text-anchor="middle" font-size="11" fill="#0f766e">Actor B</text>
+  <text x="176" y="268" font-size="15" font-weight="700" fill="#111827">2 · The next beat of the story</text>
+  <text x="176" y="285" font-size="12.5" fill="#374151">Split into a second line if the first would overflow the card. Grow the card height to fit.</text>
+
+  <line x1="500" y1="290" x2="500" y2="314" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- decision -->
+  <rect x="320" y="316" width="360" height="40" rx="20" fill="#111827"/>
+  <text x="500" y="341" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">A decision, phrased as a question?</text>
+
+  <path d="M500 356 L500 376 L290 376 L290 402" fill="none" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M500 356 L500 376 L710 376 L710 402" fill="none" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- branch A (outflow / amber) -->
+  <rect x="90" y="404" width="400" height="118" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="110" y="432" font-size="15" font-weight="700" fill="#92400e">A · Branch when condition X</text>
+  <text x="110" y="458" font-size="12.5" fill="#374151">Plain outcome, one or two short lines.</text>
+  <text x="110" y="477" font-size="12.5" fill="#374151">Say the "so what" of this path.</text>
+  <rect x="110" y="490" width="150" height="20" rx="10" fill="#fef3c7"/><text x="185" y="504" text-anchor="middle" font-size="11.5" font-weight="700" fill="#92400e">→ outcome badge</text>
+
+  <!-- branch B (inflow / emerald) -->
+  <rect x="510" y="404" width="400" height="118" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="530" y="432" font-size="15" font-weight="700" fill="#047857">B · Branch when condition Y</text>
+  <text x="530" y="458" font-size="12.5" fill="#374151">Plain outcome, one or two short lines.</text>
+  <text x="530" y="477" font-size="12.5" fill="#374151">Say the "so what" of this path.</text>
+  <rect x="530" y="490" width="150" height="20" rx="10" fill="#d1fae5"/><text x="605" y="504" text-anchor="middle" font-size="11.5" font-weight="700" fill="#047857">→ outcome badge</text>
+
+  <text x="500" y="544" text-anchor="middle" font-size="12.5" fill="#6b7280">Optional note: it can be <tspan font-weight="700" fill="#374151">A</tspan>, <tspan font-weight="700" fill="#374151">B</tspan>, or <tspan font-weight="700" fill="#374151">BOTH</tspan> — one short clarifying sentence.</text>
+
+  <!-- merge to done -->
+  <path d="M290 522 L290 560 L500 560 L500 574" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M710 522 L710 560 L500 560" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="500" y1="560" x2="500" y2="576" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="320" y="578" width="360" height="36" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+  <text x="500" y="601" text-anchor="middle" font-size="13.5" font-weight="700" fill="#3730a3">Done — where the story ends up</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+</svg>
